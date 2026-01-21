@@ -91,6 +91,9 @@
         <xsl:apply-templates/>
     </xsl:template>
 
+    <!-- Supprimer totalement les références législatives -->
+    <xsl:template match="BIBLLEG"/>
+
     <!-- Par défaut : continuer -->
     <xsl:template match="*">
         <xsl:apply-templates/>
