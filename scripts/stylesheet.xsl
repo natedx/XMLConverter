@@ -18,31 +18,42 @@
         </html>
     </xsl:template>
 
-    <!-- Titles -->
+    <!-- Titres -->
 
-    <xsl:template match="PRECODE">
+    <xsl:template match="TICOUR">
         <h1>
-            <xsl:value-of select="TITR"/>
+            <xsl:value-of select="."/>
         </h1>
     </xsl:template>
 
-    <xsl:template match="PRENIV">
-        <h2>
-            <xsl:value-of select="NUME"/> - <xsl:value-of select="INTT"/>
-        </h2>
+    <xsl:template match="ARTI">
+        <p>
+            <xsl:value-of select="NUME"/> - <xsl:value-of select="ALIN"/>
+        </p>
     </xsl:template>
 
     <xsl:template match="BIBLLEG">
         <p>
-            Référence
+            <xsl:value-of select="BIBO"/>
             <ul>
-                <li>
-                    <xsl:value-of select="PARBIBL"/>
-                </li>
+                <xsl:apply-templates select="PARBIBL"/>
             </ul>
         </p>
-
     </xsl:template>
+
+
+    <xsl:template match="PARBIBL">
+        <li>
+            <xsl:value-of select="."/>
+        </li>
+    </xsl:template>
+
+<!--    <xsl:template match="PRENIV">-->
+<!--        <h2>-->
+<!--            <xsl:value-of select="NUME"/> - <xsl:value-of select="INTT"/>-->
+<!--        </h2>-->
+<!--    </xsl:template>-->
+<!--    -->
 
 
 </xsl:stylesheet>
