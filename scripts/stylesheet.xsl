@@ -70,9 +70,33 @@
 
     <xsl:template match="ARTI">
         <p>
-            <xsl:apply-templates/>
+            <i><xsl:value-of select="INDEX"/></i>
+        </p>
+        <p>
+            <b><xsl:value-of select="NUME"/></b> - <xsl:value-of select="ALIN"/>
+        </p>
+
+        <xsl:apply-templates select="BIBLLEG"/>
+        <xsl:apply-templates select="JURI"/>
+    </xsl:template>
+
+    <xsl:template match="JURI">
+
+        <p>
+            Jurisprudence
+            <ol>
+                <xsl:apply-templates select="BNUM"/>
+            </ol>
         </p>
     </xsl:template>
+
+    <xsl:template match="BNUM">
+        <li>
+            <p><b><xsl:value-of select="INTT"/></b></p>
+            <p><xsl:value-of select="BTXT"/></p>
+        </li>
+    </xsl:template>
+
 
     <xsl:template match="BIBLLEG">
         <p>
