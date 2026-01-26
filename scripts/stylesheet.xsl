@@ -72,9 +72,9 @@
         <p>
             INDEX : <i><xsl:value-of select="INDEX"/></i>
         </p>
-        <p>
-            <b><xsl:value-of select="NUME"/></b> - <xsl:value-of select="ALIN"/>
-        </p>
+        <h5>
+            <xsl:value-of select="NUME"/> - <xsl:value-of select="ALIN"/>
+        </h5>
 
         <xsl:apply-templates select="BIBLLEG"/>
         <xsl:apply-templates select="JURI"/>
