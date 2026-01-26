@@ -70,7 +70,7 @@
 
     <xsl:template match="ARTI">
         <p>
-            <i><xsl:value-of select="INDEX"/></i>
+            INDEX : <i><xsl:value-of select="INDEX"/></i>
         </p>
         <p>
             <b><xsl:value-of select="NUME"/></b> - <xsl:value-of select="ALIN"/>
