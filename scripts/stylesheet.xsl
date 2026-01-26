@@ -58,16 +58,19 @@
             <xsl:apply-templates select="PRENIV"/>
         </h3>
         <xsl:apply-templates select="PRENIV/BIBLLEG"/>
+        <xsl:apply-templates select="NIV10"/>
     </xsl:template>
 
-<!--    Thématisation-->
-    <xsl:template match="THEMATISATION">
-        <xsl:value-of select="."/>
+    <xsl:template match="NIV10">
+        <h4>
+            <xsl:apply-templates select="PRENIV"/>
+        </h4>
+        <xsl:apply-templates select="PRENIV/ARTI"/>
     </xsl:template>
 
     <xsl:template match="ARTI">
         <p>
-            <xsl:value-of select="NUME"/> - <xsl:value-of select="ALIN"/>
+            <xsl:apply-templates/>
         </p>
     </xsl:template>
 
