@@ -20,10 +20,40 @@
 
     <!-- Titres -->
 
-    <xsl:template match="TICOUR">
+    <xsl:template match="PRECODE">
         <h1>
-            <xsl:value-of select="."/>
+            <xsl:value-of select="TICOUR"/>
         </h1>
+        <xsl:apply-templates select="NIV4"/>
+    </xsl:template>
+
+    <xsl:template match="PRENIV">
+        <div>
+            <xsl:value-of select="NUME"/> - <xsl:value-of select="INTT"/>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="NIV0">
+        <xsl:apply-templates select="NIV1"/>
+    </xsl:template>
+
+    <xsl:template match="NIV1">
+        <h1>
+            <xsl:apply-templates select="PRENIV"/>
+        </h1>
+        <xsl:apply-templates select="NIV4"/>
+    </xsl:template>
+
+    <xsl:template match="NIV4">
+        <h2>
+            <xsl:apply-templates select="PRENIV"/>
+        </h2>
+        <xsl:apply-templates select="PRENIV/BIBLLEG"/>
+    </xsl:template>
+
+<!--    Thématisation-->
+    <xsl:template match="THEMATISATION">
+        <xsl:value-of select="."/>
     </xsl:template>
 
     <xsl:template match="ARTI">
@@ -47,13 +77,6 @@
             <xsl:value-of select="."/>
         </li>
     </xsl:template>
-
-<!--    <xsl:template match="PRENIV">-->
-<!--        <h2>-->
-<!--            <xsl:value-of select="NUME"/> - <xsl:value-of select="INTT"/>-->
-<!--        </h2>-->
-<!--    </xsl:template>-->
-<!--    -->
 
 
 </xsl:stylesheet>
