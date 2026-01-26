@@ -84,16 +84,15 @@
 
         <p>
             Jurisprudence
-            <ol>
+            <ul>
                 <xsl:apply-templates select="BNUM"/>
-            </ol>
+            </ul>
         </p>
     </xsl:template>
 
     <xsl:template match="BNUM">
         <li>
-            <p><b><xsl:value-of select="INTT"/></b></p>
-            <p><xsl:value-of select="BTXT"/></p>
+            <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> </b><xsl:value-of select="BTXT"/>
         </li>
     </xsl:template>
 
