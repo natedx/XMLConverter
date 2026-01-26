@@ -49,6 +49,15 @@
             <xsl:apply-templates select="PRENIV"/>
         </h2>
         <xsl:apply-templates select="PRENIV/BIBLLEG"/>
+
+        <xsl:apply-templates select="NIV7"/>
+    </xsl:template>
+
+    <xsl:template match="NIV7">
+        <h3>
+            <xsl:apply-templates select="PRENIV"/>
+        </h3>
+        <xsl:apply-templates select="PRENIV/BIBLLEG"/>
     </xsl:template>
 
 <!--    Thématisation-->
