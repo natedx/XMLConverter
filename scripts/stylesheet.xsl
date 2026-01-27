@@ -33,17 +33,24 @@
         <xsl:value-of select="NUME"/> - <xsl:value-of select="INTT"/>
     </xsl:template>
 
-    <!-- NIV0 englobe tout le livre -->
+    <!-- NIVO permet d'encadrer des NIV1, NIV 2... ce n'est pas un 0, mais bien un O comme Oscar. -->
     <xsl:template match="NIV0">
-        <xsl:apply-templates select="NIV1"/>
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
     </xsl:template>
 
-    <!-- NIV1 correspond aux Parties -->
+    <!-- NIV1 et NIV2 correspond aux Parties et sous-parties -->
     <xsl:template match="NIV1">
         <h1>
             <xsl:apply-templates select="PRENIV"/>
         </h1>
-        <xsl:apply-templates select="NIV4"/>
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+    </xsl:template>
+
+    <xsl:template match="NIV2">
+        <h1>
+            <xsl:apply-templates select="PRENIV"/>
+        </h1>
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
     </xsl:template>
 
     <!-- NIV4 correspond aux Livres -->
@@ -51,9 +58,8 @@
         <h2>
             <xsl:apply-templates select="PRENIV"/>
         </h2>
-        <xsl:apply-templates select="PRENIV/BIBLLEG"/>
-
-        <xsl:apply-templates select="NIV7"/>
+<!--        <xsl:apply-templates select="PRENIV/BIBLLEG"/>-->
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
     </xsl:template>
 
     <!-- NIV7 correspond aux Titres -->
@@ -61,8 +67,8 @@
         <h3>
             <xsl:apply-templates select="PRENIV"/>
         </h3>
-        <xsl:apply-templates select="PRENIV/BIBLLEG"/>
-        <xsl:apply-templates select="NIV10 | PRENIV/ARTI"/>
+<!--        <xsl:apply-templates select="PRENIV/BIBLLEG"/>-->
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
     </xsl:template>
 
     <!-- NIV10 correspond aux Chapitres -->
@@ -70,8 +76,41 @@
         <h4>
             <xsl:apply-templates select="PRENIV"/>
         </h4>
-        <xsl:apply-templates select="PRENIV/ARTI"/>
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
     </xsl:template>
+
+    <!-- NIV13 correspond aux Sections -->
+    <xsl:template match="NIV13">
+        <h5>
+            <xsl:apply-templates select="PRENIV"/>
+        </h5>
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+    </xsl:template>
+
+    <!-- NIV15 correspond aux sous-sections -->
+    <xsl:template match="NIV15">
+        <h6>
+            <xsl:apply-templates select="PRENIV"/>
+        </h6>
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+    </xsl:template>
+
+    <!-- NIV17 correspond aux paragraphes -->
+    <xsl:template match="NIV17">
+        <p>
+            <xsl:apply-templates select="PRENIV"/>
+        </p>
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+    </xsl:template>
+
+    <!-- NIV19 correspond aux A. B. C -->
+    <xsl:template match="NIV19">
+        <p>
+            <xsl:apply-templates select="PRENIV"/>
+        </p>
+        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+    </xsl:template>
+
 
     <!-- ARTI correspond aux Articles -->
     <xsl:template match="ARTI">
