@@ -10,7 +10,7 @@
         <html>
             <head>
                 <meta charset="utf-8"/>
-                <title>Transpilation XML Dalloz</title>
+                <title>Code Pénal Dalloz</title>
             </head>
             <body>
                 <xsl:apply-templates/>
@@ -67,9 +67,9 @@
     </xsl:template>
 
     <xsl:template match="ARTI">
-        <p>
-            INDEX : <i><xsl:value-of select="INDEX"/></i>
-        </p>
+<!--        <p>-->
+<!--            <i><xsl:value-of select="INDEX"/></i>-->
+<!--        </p>-->
         <h5>
             <xsl:value-of select="NUME"/> - <xsl:value-of select="ALIN"/>
         </h5>
