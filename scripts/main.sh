@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-DATA_DIR="/data"
+DATA_DIR="${1:-${DATA_DIR:-$(pwd)/data}}"
+
 INPUT_DIR="$DATA_DIR/input"
 OUTPUT_DIR="$DATA_DIR/output"
 WORK_DIR="$DATA_DIR/work"
+
+echo "DATA_DIR utilisé : $DATA_DIR"
 
 mkdir -p "$INPUT_DIR" "$OUTPUT_DIR" "$WORK_DIR"
 
