@@ -11,12 +11,8 @@ echo "Verified that XML file is clean"
 
 xsltproc stylesheet.xsl code_penal_fixed.xml > output.html
 
-echo "Using stylesheet to translate XML to HTML"
+echo "Finished translating XML to HTML with stylesheet"
 
-pandoc output.html \
-  --from=html \
-  --to=docx \
-  --standalone \
-  -o output.docx
+pandoc output.html -o output.docx --reference-doc=reference.docx
 
-echo "Finished XML conversion"
+echo "Finished XML conversion to .docx Word"

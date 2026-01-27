@@ -28,9 +28,7 @@
     </xsl:template>
 
     <xsl:template match="PRENIV">
-        <div>
-            <xsl:value-of select="NUME"/> - <xsl:value-of select="INTT"/>
-        </div>
+        <xsl:value-of select="NUME"/> - <xsl:value-of select="INTT"/>
     </xsl:template>
 
     <xsl:template match="NIV0">
