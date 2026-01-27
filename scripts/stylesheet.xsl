@@ -30,7 +30,13 @@
     <!-- Mise en page des entêtes : NUME correspond à la numérotation (Première Partie, Livre I, Titre I, Chapitre I, Art. 111-1...) et INTT à l'intitulé. -->
 
     <xsl:template match="PRENIV">
-        <xsl:value-of select="NUME"/> - <xsl:value-of select="INTT"/>
+        <xsl:apply-templates/>
+    </xsl:template>
+
+    <xsl:template match="NUME">
+    </xsl:template>
+
+    <xsl:template match="INTT">
     </xsl:template>
 
     <!-- NIVO permet d'encadrer des NIV1, NIV 2... ce n'est pas un 0, mais bien un O comme Oscar. -->
@@ -41,88 +47,89 @@
     <!-- NIV1 et NIV2 correspond aux Parties et sous-parties -->
     <xsl:template match="NIV1">
         <h1>
-            <xsl:apply-templates select="PRENIV"/>
+            <xsl:value-of select="PRENIV/NUME"/> - <xsl:value-of select="PRENIV/INTT"/>
         </h1>
-        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+        <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="NIV2">
         <h1>
-            <xsl:apply-templates select="PRENIV"/>
+            <xsl:value-of select="PRENIV/NUME"/> - <xsl:value-of select="PRENIV/INTT"/>
         </h1>
-        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+        <xsl:apply-templates/>
     </xsl:template>
 
     <!-- NIV4 correspond aux Livres -->
     <xsl:template match="NIV4">
         <h2>
-            <xsl:apply-templates select="PRENIV"/>
+            <xsl:value-of select="PRENIV/NUME"/> - <xsl:value-of select="PRENIV/INTT"/>
         </h2>
-<!--        <xsl:apply-templates select="PRENIV/BIBLLEG"/>-->
-        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+        <xsl:apply-templates/>
     </xsl:template>
 
     <!-- NIV7 correspond aux Titres -->
     <xsl:template match="NIV7">
         <h3>
-            <xsl:apply-templates select="PRENIV"/>
+            <xsl:value-of select="PRENIV/NUME"/> - <xsl:value-of select="PRENIV/INTT"/>
         </h3>
-<!--        <xsl:apply-templates select="PRENIV/BIBLLEG"/>-->
-        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+        <xsl:apply-templates/>
     </xsl:template>
 
     <!-- NIV10 correspond aux Chapitres -->
     <xsl:template match="NIV10">
         <h4>
-            <xsl:apply-templates select="PRENIV"/>
+            <xsl:value-of select="PRENIV/NUME"/> - <xsl:value-of select="PRENIV/INTT"/>
         </h4>
-        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+        <xsl:apply-templates/>
     </xsl:template>
 
     <!-- NIV13 correspond aux Sections -->
     <xsl:template match="NIV13">
         <h5>
-            <xsl:apply-templates select="PRENIV"/>
+            <xsl:value-of select="PRENIV/NUME"/> - <xsl:value-of select="PRENIV/INTT"/>
         </h5>
-        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+        <xsl:apply-templates/>
     </xsl:template>
 
     <!-- NIV15 correspond aux sous-sections -->
     <xsl:template match="NIV15">
         <h6>
-            <xsl:apply-templates select="PRENIV"/>
+            <xsl:value-of select="PRENIV/NUME"/> - <xsl:value-of select="PRENIV/INTT"/>
         </h6>
-        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+        <xsl:apply-templates/>
     </xsl:template>
 
     <!-- NIV17 correspond aux paragraphes -->
     <xsl:template match="NIV17">
         <p>
-            <xsl:apply-templates select="PRENIV"/>
+            <xsl:value-of select="PRENIV/NUME"/> - <xsl:value-of select="PRENIV/INTT"/>
         </p>
-        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+        <xsl:apply-templates/>
     </xsl:template>
 
     <!-- NIV19 correspond aux A. B. C -->
     <xsl:template match="NIV19">
         <p>
-            <xsl:apply-templates select="PRENIV"/>
+            <xsl:value-of select="PRENIV/NUME"/> - <xsl:value-of select="PRENIV/INTT"/>
         </p>
-        <xsl:apply-templates select="*[starts-with(name(), 'NIV')]"/>
+        <xsl:apply-templates/>
     </xsl:template>
 
 
     <!-- ARTI correspond aux Articles -->
     <xsl:template match="ARTI">
-<!--        <p>-->
-<!--            <i><xsl:value-of select="INDEX"/></i>-->
-<!--        </p>-->
-        <h5>
-            <xsl:value-of select="NUME"/> - <xsl:value-of select="ALIN"/>
-        </h5>
+        <p>
+            <b><xsl:value-of select="NUME"/></b> - <xsl:value-of select="ALIN"/>
+        </p>
+        <xsl:apply-templates/>
+    </xsl:template>
 
-        <xsl:apply-templates select="BIBLLEG"/>
-        <xsl:apply-templates select="JURI"/>
+    <!-- JURI correspond à la Jurisprudence -->
+    <xsl:template match="INDEX">
+
+        <p>
+            <xsl:value-of select="."/>
+        </p>
     </xsl:template>
 
     <!-- JURI correspond à la Jurisprudence -->
