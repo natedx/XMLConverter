@@ -85,15 +85,29 @@
         <p>
             Jurisprudence
             <ul>
-                <xsl:apply-templates select="BNUM"/>
+                <xsl:apply-templates select="BNUM | NIJ1"/>
             </ul>
         </p>
     </xsl:template>
 
     <xsl:template match="BNUM">
         <li>
-            <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> </b><xsl:value-of select="BTXT"/>
+            <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> - </b><xsl:value-of select="BTXT"/>
+            <xsl:value-of select="BIBLJURI"/>
         </li>
+        <br/>
+    </xsl:template>
+
+    <xsl:template match="NIJ1">
+        <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> </b><xsl:value-of select="BTXT"/>
+        <br/>
+        <xsl:apply-templates select="NIJ2"/>
+    </xsl:template>
+
+    <xsl:template match="NIJ2">
+        <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> </b><xsl:value-of select="BTXT"/>
+        <br/>
+        <xsl:apply-templates select="BNUM"/>
     </xsl:template>
 
 
