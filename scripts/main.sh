@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-DATA_DIR="${1:-${DATA_DIR:-$(pwd)/data}}"
+DATA_DIR="${1:-$DATA_DIR}"
 
 INPUT_DIR="$DATA_DIR/input"
 OUTPUT_DIR="$DATA_DIR/output"
