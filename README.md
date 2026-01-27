@@ -15,7 +15,7 @@ https://developer.mozilla.org/en-US/docs/Web/XML/XSLT/Guides/Transforming_XML_wi
 Lire le manuel suivant : https://pandoc.org/MANUAL.html
 
 ### XMLLint pour vérifier l'intégrité du XML propriétaire.
-Le XML fourni par Dalloz n'est pas utilisable tel quel par XSLT, car il contient des caractères non autorisés.
+Le XML fourni n'est pas utilisable tel quel par XSLT, car il contient des caractères non autorisés.
 Nous utilisons donc XMLLint pour vérifier que le XML est intègre avant d'essayer d'utiliser XSLT.
 
 Voir le manuel : https://gnome.pages.gitlab.gnome.org/libxml2/xmllint.html
