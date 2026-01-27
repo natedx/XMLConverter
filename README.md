@@ -27,13 +27,6 @@ Cependant, nous n'utilisons pas XMLLint pour faire les corrections, nous les fai
 On utilise un script python tout simple pour remplacer les entités HTML par des entités XML uniquement.
 Voir le fichier `parseToValidXML.py`
 
-## Script principal `main.sh`
-
-Lancer ce script créé des fichiers intermédiaires, et finit par sortir un certain `output.docx`.
-C'est ce fichier Word qui contient le résultat de la conversion.
-
-Pour plus d'informations, consulter les commentaires dans `main.sh`
-
 ## Utilisation avec Docker
 
 Cette méthode est la plus simple et la plus fiable pour exécuter le convertisseur, sans installer manuellement toutes les dépendances (Python, Pandoc, XSLT, XMLLint, etc.).
@@ -75,16 +68,17 @@ data/
 └── output/
 ```
 
+- Il n'est pas obligatoire de créer `work/` et `output/`, le script s'en chargera.
 - Le fichier XML **d’entrée** doit être placé dans `data/input/`
 - Le script utilisera automatiquement le premier fichier `*.xml` trouvé dans ce dossier
-- Les fichiers intermédiaires seront générés dans `data/work/`
+- Les fichiers intermédiaires (y compris le fichier HTML intermédiaire) seront générés dans `data/work/`
 - Le fichier final sera généré dans `data/output/output.docx`
 
 ---
 
 ### 3. Télécharger et exécuter le conteneur
 
-Télécharger l’image Docker (à adapter si nécessaire avec le nom exact du dépôt) :
+Télécharger l’image Docker :
 
 ```
 docker pull n8dx/xmlconverter:latest
@@ -172,8 +166,64 @@ docker run --rm \
 1. Modifier `parseToValidXML.py`, `main.sh` ou `stylesheet.xsl`
 2. Mettre à jour ou remplacer le fichier XML dans `data/input/`
 3. Relancer la commande `docker run ...` (voir plus haut)
-4. Vérifier le résultat dans `data/output/output.docx`
+4. Vérifier le résultat dans `data/output/output.docx` ou `data/work/output.html`
 
 ---
 
 💡 **Astuce** : tant que le `Dockerfile` ne change pas, il n’est pas nécessaire de reconstruire l’image (`docker build`).
+
+
+## Modifier le rendu HTML et le style du document Word
+
+La conversion repose sur **deux leviers distincts** :
+
+- `stylesheet.xsl` : contrôle la **structure HTML intermédiaire**
+- `reference.docx` : contrôle le **style final du document Word**
+
+---
+
+### Modifier le HTML intermédiaire (`stylesheet.xsl`)
+
+Le fichier `stylesheet.xsl` transforme le XML source en HTML via XSLT.
+
+Chaque règle de ce fichier indique :
+- **quelle balise XML** est ciblée (`match="NIV1"`, `match="ARTI"`, etc.)
+- **quel HTML** est généré (`<h1>`, `<p>`, `<b>`, listes, etc.)
+
+Exemples simples :
+- changer une balise `<h1>` en `<h2>` modifie la hiérarchie HTML
+- supprimer ou ajuster une règle permet d’inclure / exclure certaines parties du document
+- on pourrait même imaginer ajouter une classe CSS (`<h1 class="partie">`) pour un beau rendu sur le navigateur.
+
+Le fichier est largement commenté : la modification se fait directement dans les templates existants.
+
+Après modification, relancer simplement le pipeline de développement local avec Docker pour voir le résultat.
+
+---
+
+### Modifier le style du document Word (`reference.docx`)
+
+Le fichier `reference.docx` est utilisé par Pandoc comme **document de référence**.
+
+Il définit :
+- les styles Word (Titres 1 à 6, Normal, Listes, etc.)
+- les polices, tailles, marges, espacements
+- la numérotation et la hiérarchie visuelle
+
+Pour modifier le rendu final :
+
+1. Ouvrir `reference.docx` dans Microsoft Word ou LibreOffice
+2. Modifier les styles (ex. *Titre 1*, *Titre 2*, *Normal*)
+3. Enregistrer le fichier
+4. Relancer la conversion
+
+Pandoc appliquera automatiquement ces styles au document généré.
+
+---
+
+### Conclusion
+
+- **La structure** se règle dans `stylesheet.xsl`
+- **L’apparence finale** se règle dans `reference.docx`, c'est superficiel
+
+Il est recommandé de modifier d’abord le XSLT pour obtenir une structure HTML correcte, puis d’affiner le rendu Word via le document de référence.
