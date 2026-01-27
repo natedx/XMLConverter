@@ -1,5 +1,3 @@
-
-
 # XML converter
 
 Construit par SonarVision pour l'association apiDV.
@@ -35,3 +33,80 @@ Lancer ce script créé des fichiers intermédiaires, et finit par sortir un cer
 C'est ce fichier Word qui contient le résultat de la conversion.
 
 Pour plus d'informations, consulter les commentaires dans `main.sh`
+
+## Utilisation avec Docker
+
+Cette méthode est la plus simple et la plus fiable pour exécuter le convertisseur, sans installer manuellement toutes les dépendances (Python, Pandoc, XSLT, XMLLint, etc.).
+
+### 1. Installer Docker
+
+Docker est disponible sur tous les principaux systèmes :
+
+- **macOS / Windows**  
+  Télécharger et installer Docker Desktop :  
+  https://www.docker.com/products/docker-desktop/
+
+- **Linux (Ubuntu / Debian)**  
+  ```
+  sudo apt update
+  sudo apt install -y docker.io
+  sudo systemctl enable docker
+  sudo systemctl start docker
+  ```
+
+Vérifier que Docker fonctionne :
+```
+docker --version
+```
+
+---
+
+### 2. Préparer la structure des fichiers (volume `/data`)
+
+Le conteneur utilise un volume monté sur `/data` pour les entrées et sorties.
+
+Sur votre machine, créez la structure suivante :
+
+```
+data/
+├── input/
+│   └── mon_fichier.xml
+├── work/
+└── output/
+```
+
+- Le fichier XML **d’entrée** doit être placé dans `data/input/`
+- Le script utilisera automatiquement le premier fichier `*.xml` trouvé dans ce dossier
+- Les fichiers intermédiaires seront générés dans `data/work/`
+- Le fichier final sera généré dans `data/output/output.docx`
+
+---
+
+### 3. Télécharger et exécuter le conteneur
+
+Télécharger l’image Docker (à adapter si nécessaire avec le nom exact du dépôt) :
+
+```
+docker pull n8dx/xmlconverter:latest
+```
+
+Exécuter le conteneur en montant le dossier `data/` :
+
+```
+docker run --rm \
+  -v "$(pwd)/data:/data" \
+  n8dx/xmlconverter:latest
+```
+
+Après l’exécution, le fichier Word converti sera disponible dans :
+
+```
+data/output/output.docx
+```
+
+---
+
+### Remarques
+
+- Le conteneur peut être exécuté depuis n’importe quel dossier tant que le volume `data/` est correctement monté
+- Le chemin `/data` est la valeur par défaut, mais il peut être surchargé si nécessaire via la variable d’environnement `DATA_DIR`
