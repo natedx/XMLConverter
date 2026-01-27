@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
-INPUT_DIR="input"
-OUTPUT_DIR="output"
-WORK_DIR="work"
+DATA_DIR="/data"
+INPUT_DIR="$DATA_DIR/input"
+OUTPUT_DIR="$DATA_DIR/output"
+WORK_DIR="$DATA_DIR/work"
 
 mkdir -p "$INPUT_DIR" "$OUTPUT_DIR" "$WORK_DIR"
 
