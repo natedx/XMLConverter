@@ -62,7 +62,7 @@
             <xsl:apply-templates select="PRENIV"/>
         </h3>
         <xsl:apply-templates select="PRENIV/BIBLLEG"/>
-        <xsl:apply-templates select="NIV10"/>
+        <xsl:apply-templates select="NIV10 | PRENIV/ARTI"/>
     </xsl:template>
 
     <!-- NIV10 correspond aux Chapitres -->
