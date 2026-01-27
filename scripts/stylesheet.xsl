@@ -101,10 +101,28 @@
     <xsl:template match="NIJ1">
         <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> </b><xsl:value-of select="BTXT"/>
         <br/>
-        <xsl:apply-templates select="NIJ2"/>
+        <xsl:apply-templates select="BNUM | NIJ2"/>
     </xsl:template>
 
     <xsl:template match="NIJ2">
+        <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> </b><xsl:value-of select="BTXT"/>
+        <br/>
+        <xsl:apply-templates select="BNUM | NIJ3"/>
+    </xsl:template>
+
+    <xsl:template match="NIJ3">
+        <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> </b><xsl:value-of select="BTXT"/>
+        <br/>
+        <xsl:apply-templates select="BNUM | NIJ4"/>
+    </xsl:template>
+
+    <xsl:template match="NIJ4">
+        <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> </b><xsl:value-of select="BTXT"/>
+        <br/>
+        <xsl:apply-templates select="BNUM | NIJ5"/>
+    </xsl:template>
+
+    <xsl:template match="NIJ5">
         <b><xsl:value-of select="NUME"/>. <xsl:value-of select="INTT"/> </b><xsl:value-of select="BTXT"/>
         <br/>
         <xsl:apply-templates select="BNUM"/>
