@@ -110,3 +110,70 @@ data/output/output.docx
 
 - Le conteneur peut être exécuté depuis n’importe quel dossier tant que le volume `data/` est correctement monté
 - Le chemin `/data` est la valeur par défaut, mais il peut être surchargé si nécessaire via la variable d’environnement `DATA_DIR`
+
+
+## Développer en local avec Docker
+
+Docker peut également être utilisé comme **environnement de développement**, afin d’éviter toute installation locale de dépendances (Python, Pandoc, xsltproc, xmllint, etc.).
+
+Cette approche permet de modifier les scripts **localement** tout en les exécutant **dans le conteneur**, avec un cycle de feedback rapide.
+
+---
+
+### Principe général
+
+- Le conteneur fournit toutes les dépendances
+- Le code source local est monté dans le conteneur
+- Le dossier `data/` est monté pour conserver les entrées/sorties
+- Chaque exécution utilise **la version locale des fichiers**
+
+---
+
+### Commande de développement
+
+Depuis la racine du projet, construire l’image (une seule fois ou après modification du Dockerfile) :
+
+```
+docker build -t xmlconverter .
+```
+
+Puis lancer le pipeline en mode développement :
+
+```
+docker run --rm \
+  -v "$(pwd):/app" \
+  -v "$(pwd)/../data:/data" \
+  -e DATA_DIR=/data \
+  xmlconverter
+```
+
+---
+
+### Ce que fait cette commande
+
+- `-v "$(pwd):/app"`  
+  Monte le code source local dans le conteneur  
+  → toute modification de script est immédiatement prise en compte
+
+- `-v "$(pwd)/../data:/data"`  
+  Monte les entrées/sorties du pipeline  
+  → les fichiers générés restent sur la machine hôte
+
+- `-e DATA_DIR=/data`  
+  Indique explicitement au script où se trouvent les données
+
+- `--rm`  
+  Supprime le conteneur après exécution (environnement jetable)
+
+---
+
+### Boucle de développement typique
+
+1. Modifier `parseToValidXML.py`, `main.sh` ou `stylesheet.xsl`
+2. Mettre à jour ou remplacer le fichier XML dans `data/input/`
+3. Relancer la commande `docker run ...` (voir plus haut)
+4. Vérifier le résultat dans `data/output/output.docx`
+
+---
+
+💡 **Astuce** : tant que le `Dockerfile` ne change pas, il n’est pas nécessaire de reconstruire l’image (`docker build`).
