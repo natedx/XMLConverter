@@ -21,11 +21,26 @@
     <!-- Première Page -->
 
     <xsl:template match="PRECODE">
-<!--        <h1>-->
-<!--            <xsl:value-of select="TICOUR"/>-->
-<!--        </h1>-->
-<!--        <xsl:apply-templates select="NIV4"/>-->
     </xsl:template>
+
+    <!-- BALISES IGNORÉES : à regarder de plus près si vous avez l'impression qu'il vous manque des choses.-->
+
+    <!-- Les balises GRATA semblent contenir des références à d'autres textes.-->
+    <xsl:template match="GRATA">
+        GRATA_SUPPR
+    </xsl:template>
+
+    <!-- Les balises GRATA semblent contenir des références à d'autres codes-->
+    <xsl:template match="SOUSCODE">
+        SOUSCODE_SUPPR
+    </xsl:template>
+
+    <!-- La balise APPE correspond aux Appendices, pourrait faire l'objet de son propre document-->
+    <xsl:template match="APPE">
+        APPENDICE_SUPPRIMÉE
+    </xsl:template>
+
+    <!-- FIN DES BALISES IGNORÉES : à regarder de plus près si vous avez l'impression qu'il vous manque des choses.-->
 
     <!-- Mise en page des entêtes : NUME correspond à la numérotation (Première Partie, Livre I, Titre I, Chapitre I, Art. 111-1...) et INTT à l'intitulé. -->
 
