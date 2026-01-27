@@ -10,7 +10,7 @@
         <html>
             <head>
                 <meta charset="utf-8"/>
-                <title>Code Pénal Dalloz</title>
+                <title>Code Pénal</title>
             </head>
             <body>
                 <xsl:apply-templates/>
@@ -21,10 +21,10 @@
     <!-- Première Page -->
 
     <xsl:template match="PRECODE">
-        <h1>
-            <xsl:value-of select="TICOUR"/>
-        </h1>
-        <xsl:apply-templates select="NIV4"/>
+<!--        <h1>-->
+<!--            <xsl:value-of select="TICOUR"/>-->
+<!--        </h1>-->
+<!--        <xsl:apply-templates select="NIV4"/>-->
     </xsl:template>
 
     <!-- Mise en page des entêtes : NUME correspond à la numérotation (Première Partie, Livre I, Titre I, Chapitre I, Art. 111-1...) et INTT à l'intitulé. -->
