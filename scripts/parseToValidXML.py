@@ -1,10 +1,18 @@
 import re
 import html
+import sys
 
 # Entités XML à NE PAS toucher
 XML_BUILTINS = {"amp", "lt", "gt", "quot", "apos"}
 
-with open("code_penal.xml", "r", encoding="utf-8", errors="replace") as f:
+if len(sys.argv) != 3:
+    print("Usage: python3 parseToValidXML.py <input.xml> <output.xml>")
+    sys.exit(1)
+
+input_path = sys.argv[1]
+output_path = sys.argv[2]
+
+with open(input_path, "r", encoding="utf-8", errors="replace") as f:
     data = f.read()
 
 # Convertit uniquement les entités nommées NON XML (ex: egrave, eacute...)
@@ -24,5 +32,5 @@ data = re.sub(r"&([A-Za-z][A-Za-z0-9]+);", repl, data)
 # On supprime la déclaration DOCTYPE qui est inconnue et propriétaire.
 data = re.sub(r'<!DOCTYPE[^>]*>', '', data)
 
-with open("code_penal_fixed.xml", "w", encoding="utf-8") as f:
+with open(output_path, "w", encoding="utf-8") as f:
     f.write(data)
