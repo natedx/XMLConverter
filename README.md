@@ -116,6 +116,7 @@ Cette approche permet de modifier les scripts **localement** tout en les exécut
 
 ### Principe général
 
+- Clonez le projet sur votre machine
 - Le conteneur fournit toutes les dépendances
 - Le code source local est monté dans le conteneur
 - Le dossier `data/` est monté pour conserver les entrées/sorties
@@ -128,18 +129,21 @@ Cette approche permet de modifier les scripts **localement** tout en les exécut
 Depuis la racine du projet, construire l’image (une seule fois ou après modification du Dockerfile) :
 
 ```
-docker build -t xmlconverter .
+docker build -t xmlconverter ./scripts
+
 ```
 
 Puis lancer le pipeline en mode développement :
 
 ```
 docker run --rm \
-  -v "$(pwd):/app" \
-  -v "$(pwd)/../data:/data" \
+  -v "$(pwd)/scripts:/app" \
+  -v "$(pwd)/data:/data" \
   -e DATA_DIR=/data \
   xmlconverter
 ```
+
+Vous pouvez aussi utiliser les scripts `build.sh` et `run.sh`.
 
 ---
 
