@@ -39,13 +39,9 @@ Docker est disponible sur tous les principaux systèmes :
   Télécharger et installer Docker Desktop :  
   https://www.docker.com/products/docker-desktop/
 
-- **Linux (Ubuntu / Debian)**  
-  ```
-  sudo apt update
-  sudo apt install -y docker.io
-  sudo systemctl enable docker
-  sudo systemctl start docker
-  ```
+- **Linux (Ubuntu / Debian)**
+  - Ubuntu : https://docs.docker.com/engine/install/ubuntu/
+  - Debian : https://docs.docker.com/engine/install/debian/
 
 Vérifier que Docker fonctionne :
 ```
